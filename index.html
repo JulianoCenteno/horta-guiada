@@ -173,7 +173,6 @@ footer { padding: 1.5rem 0 6rem; font-size: 0.8rem; color: var(--tinta-suave); t
 </style>
 </head>
 <body>
-<div class="demo">Protótipo para revisão: o checkout e o vídeo ainda não estão ligados.</div>
 <header class="topo"><div class="wrap"><img src="app/img/logo.png" alt="Horta Guiada" width="104" height="46"></div></header>
 
 <main class="wrap" id="principal">
@@ -311,7 +310,7 @@ footer { padding: 1.5rem 0 6rem; font-size: 0.8rem; color: var(--tinta-suave); t
         <p>por apenas</p>
         <p class="por"><small>R$</small>47</p>
         <p class="suave pequeno">12 meses de acesso · ou em até 5x no cartão</p>
-        <button class="btn" type="button" data-ir="checkout">Quero começar a minha horta</button>
+        <a class="btn" data-checkout href="https://appdigitalhub.com.br/c/68C4D7B7">Quero começar a minha horta</a>
         <p class="suave pequeno">Acesso enviado no seu WhatsApp e e-mail.</p>
       </div>
 
@@ -329,95 +328,13 @@ footer { padding: 1.5rem 0 6rem; font-size: 0.8rem; color: var(--tinta-suave); t
       <details class="faq"><summary>Preciso entender de hidroponia?</summary><p>Não. O app explica tudo com palavras simples e diz o que fazer em cada dia.</p></details>
       <details class="faq"><summary>É pagamento único ou mensal?</summary><p>Você paga uma vez e usa por 12 meses. Depois disso, renova só se quiser.</p></details>
       <details class="faq"><summary>Como recebo o acesso?</summary><p>Logo depois do pagamento chega um link no seu WhatsApp e no seu e-mail. É só tocar e o app abre no celular.</p></details>
-      <button class="btn sol" type="button" data-ir="checkout">Quero começar a minha horta</button>
+      <a class="btn sol" data-checkout href="https://appdigitalhub.com.br/c/68C4D7B7">Quero começar a minha horta</a>
     </div>
   </section>
 
-  <!-- CHECKOUT (prévia com order bumps) -->
-  <section class="tela" id="t-checkout">
-    <span class="etiqueta escura">Prévia do checkout</span>
-    <h1>Seu pedido</h1>
-    <div class="cartao resumo">
-      <div class="linha-info"><span>Horta Guiada: plano anual + 5 bônus</span><span>R$47,00</span></div>
-    </div>
-    <h3>Aproveite também:</h3>
-    <label class="bump"><input type="checkbox" data-bump="familia" data-valor="14.90"><img src="app/img/capa-familia.jpg" alt="Tela do Acesso Família no app"><span><strong>SIM, quero o Acesso Família por +R$14,90</strong><br><span class="pequeno">Até 2 filhos ou netos acompanham a horta pelo celular deles: veem a tarefa do dia, o álbum de fotos e o aviso da colheita.</span></span></label>
-    <label class="bump"><input type="checkbox" data-bump="premium" data-valor="17.90"><img src="app/img/capa-premium.jpg" alt="Capa do guia Projetos Premium"><span><strong>SIM, quero os Projetos Premium por +R$17,90</strong><br><span class="pequeno">Tomate, morango e pimentão: guia de 12 páginas em letra grande, com lista de compras, montagem, cuidados e colheita. Os 3 projetos também entram no app.</span></span></label>
-    <label class="bump"><input type="checkbox" data-bump="imprimir" data-valor="9.90"><img src="app/img/capa-kit.jpg" alt="Capa do Kit para Imprimir"><span><strong>SIM, quero o Kit para Imprimir por +R$9,90</strong><br><span class="pequeno">13 páginas para colar na geladeira: calendário de 6 semanas, anotações da acidez, o que plantar em cada estação, ajuda rápida e 6 receitas em letra grande.</span></span></label>
-    <div class="cartao">
-      <div class="linha-info total"><span>Total</span><span id="total">R$47,00</span></div>
-    </div>
-    <button class="btn" type="button" data-ir="upsell1">Finalizar compra (demonstração)</button>
-    <p class="suave pequeno centro">Nesta prévia nada é cobrado. No ar, este passo será o checkout da plataforma de pagamento.</p>
-  </section>
-
-  <!-- UPSELL 1 -->
-  <section class="tela" id="t-upsell1">
-    <span class="etiqueta escura">Espere! Seu pedido ainda não terminou</span>
-    <h1>Quer um agrônomo de verdade acompanhando a sua horta por 90 dias?</h1>
-    <div class="cartao"><img class="foto" src="app/img/hero.jpg" alt="Senhora colhendo alface"></div>
-    <ul class="lista-check">
-      <li>Diagnóstico por foto ilimitado</li>
-      <li>Resposta de um agrônomo em até 24 horas, pelo WhatsApp</li>
-      <li>2 encontros ao vivo por mês para tirar dúvidas</li>
-    </ul>
-    <div class="cartao sol preco"><p class="por"><small>R$</small>97</p><p class="suave pequeno">pagamento único, só nesta página</p></div>
-    <button class="btn" type="button" data-ir="upsell2">Sim, quero o agrônomo por 90 dias</button>
-    <button class="btn link" type="button" data-ir="downsell1">Não, prefiro cuidar sozinho</button>
-  </section>
-
-  <!-- DOWNSELL 1 -->
-  <section class="tela" id="t-downsell1">
-    <span class="etiqueta escura">Última chance</span>
-    <h1>Que tal começar com 30 dias de agrônomo?</h1>
-    <p>É o período em que a horta mais precisa de atenção. Mesmo acompanhamento, por um mês.</p>
-    <div class="cartao sol preco"><p class="de">R$97</p><p class="por"><small>R$</small>47</p></div>
-    <button class="btn" type="button" data-ir="upsell2">Sim, quero 30 dias de agrônomo</button>
-    <button class="btn link" type="button" data-ir="upsell2">Não, obrigado</button>
-  </section>
-
-  <!-- UPSELL 2 -->
-  <section class="tela" id="t-upsell2">
-    <span class="etiqueta escura">Uma última oferta</span>
-    <h1>E se a sua horta também trouxesse uma renda extra?</h1>
-    <div class="cartao"><img class="foto" src="app/img/nft.jpg" alt="Bancada de alfaces"></div>
-    <ul class="lista-check">
-      <li>Como dimensionar a bancada para vender</li>
-      <li>Quanto cobrar e como embalar</li>
-      <li>Como vender no condomínio, para vizinhos e na feira</li>
-      <li>Planilha de custo e lucro pronta</li>
-    </ul>
-    <div class="cartao sol preco"><p class="por"><small>R$</small>67</p></div>
-    <button class="btn" type="button" data-ir="obrigado">Sim, quero o Renda Extra</button>
-    <button class="btn link" type="button" data-ir="downsell2">Não, minha horta é só para casa</button>
-  </section>
-
-  <!-- DOWNSELL 2 -->
-  <section class="tela" id="t-downsell2">
-    <h1>Fique com a versão básica do Renda Extra</h1>
-    <p>O guia e a planilha de custo e lucro, sem os encontros ao vivo.</p>
-    <div class="cartao sol preco"><p class="de">R$67</p><p class="por"><small>R$</small>37</p></div>
-    <button class="btn" type="button" data-ir="obrigado">Sim, quero a versão básica</button>
-    <button class="btn link" type="button" data-ir="obrigado">Não, obrigado</button>
-  </section>
-
-  <!-- OBRIGADO -->
-  <section class="tela" id="t-obrigado">
-    <span class="etiqueta">Compra confirmada (demonstração)</span>
-    <h1>Bem-vindo à Horta Guiada!</h1>
-    <p>No ar, este é o momento em que o acesso chega pelo WhatsApp. Nesta prévia, você pode abrir o app direto:</p>
-    <a class="btn" href="app/">Abrir o app</a>
-    <div class="cartao">
-      <h3>Seus produtos extras (prévia)</h3>
-      <a class="btn secundario" href="produtos/horta-guiada-projetos-premium.pdf">Projetos Premium (PDF)</a>
-      <a class="btn secundario" href="produtos/horta-guiada-kit-para-imprimir.pdf">Kit para Imprimir (PDF)</a>
-      <p class="suave pequeno">O Acesso Família fica dentro do app, no menu Ajuda.</p>
-    </div>
-    <button class="btn secundario" type="button" data-ir="capa">Voltar ao começo do quiz</button>
-  </section>
 </main>
 
-<div class="barra-cta" id="barra-cta"><div class="wrap"><button class="btn sol" type="button" data-ir="checkout">Quero começar a minha horta · R$47</button></div></div>
+<div class="barra-cta" id="barra-cta"><div class="wrap"><a class="btn sol" data-checkout href="https://appdigitalhub.com.br/c/68C4D7B7">Quero começar a minha horta · R$47</a></div></div>
 
 <footer class="wrap">
   <p>Horta Guiada © 2026</p>
@@ -522,12 +439,7 @@ footer { padding: 1.5rem 0 6rem; font-size: 0.8rem; color: var(--tinta-suave); t
     mostrar("t-resultado");
   }
 
-  function total() {
-    var t = 47;
-    document.querySelectorAll("[data-bump]").forEach(function (c) { if (c.checked) t += Number(c.getAttribute("data-valor")); });
-    document.getElementById("total").textContent = "R$" + t.toFixed(2).replace(".", ",");
-  }
-  document.querySelectorAll("[data-bump]").forEach(function (c) { c.addEventListener("change", total); });
+  if (location.search) document.querySelectorAll("[data-checkout]").forEach(function (a) { a.href = a.href + (a.href.indexOf("?") < 0 ? "?" : "&") + location.search.slice(1); });
 
   document.addEventListener("click", function (ev) {
     var b = ev.target.closest("[data-ir],[data-q]");
