@@ -416,6 +416,7 @@ details.faq p { padding: 0 1rem 1rem; }
     { id: "limo", t: "Limo verde na água ou nos canos", causa: "Luz está entrando na água.", fazer: ["Cubra o reservatório e os canos transparentes.", "Tampe os furos que estão sem planta.", "Na próxima troca de água, lave o limo com escova e água, sem sabão."] }
   ];
 
+  var SEMANA = [{"dia": 1, "titulo": "As mudas chegaram na horta", "tarefa": "Conferir cada copinho e tirar a primeira foto", "texto": ["Bom dia! Hoje é um dia especial: as mudas foram para a horta. Parabéns por ter chegado até aqui.", "Hoje a tarefa é só olhar com calma. Passe por cada copinho e veja se a muda está firme, em pé, e se a raiz encosta na água. Se alguma estiver tombada, ajeite com cuidado, segurando pela espuma, nunca pelas folhas.", "Escute a bomba: a água deve estar correndo nos canos. No Kratky e na caixa flutuante, confira se a água encosta no fundo dos copinhos.", "Antes de terminar, tire a primeira foto da horta e guarde no Diário do app. Daqui a 5 semanas você vai olhar para essa foto e sorrir.", "Até amanhã!"]}, {"dia": 2, "titulo": "Murchar um pouco é normal", "tarefa": "Olhar o nível da água sem mexer nas mudas", "texto": ["Bom dia! Se alguma muda amanheceu um pouco murcha, fique tranquilo. É normal no segundo dia. A planta trocou de casa e está se acostumando. Em dois ou três dias ela se levanta.", "A tarefa de hoje é olhar a marca do nível da água. Se baixou, complete só com água pura, sem adubo.", "Uma dica importante: não fique tirando as mudas do lugar para ver a raiz. Cada vez que a gente mexe, a planta leva um susto. Deixe ela trabalhar em paz.", "Se o dia estiver muito quente, nas horas de sol forte, uma sombra leve ajuda as mudas novinhas.", "Até amanhã!"]}, {"dia": 3, "titulo": "A primeira medição da acidez", "tarefa": "Medir a acidez com a fitinha", "texto": ["Bom dia! Hoje você vai fazer a sua primeira medição. Não tem segredo.", "Pegue uma fitinha, mergulhe na água do reservatório por dois segundos e espere trinta segundos. Depois abra o app, toque em Medir a acidez e escolha a cor mais parecida.", "O bom é entre cinco e meio e seis e meio. Se estiver nessa faixa, ótimo: não precisa fazer nada. Se estiver fora, o app diz exatamente quantas gotinhas de corretor usar.", "Anote o número no app ou na folha de anotações. Com o tempo você vai perceber como a sua água se comporta.", "Até amanhã!"]}, {"dia": 4, "titulo": "Raiz branca é raiz feliz", "tarefa": "Olhar as raízes com a lanterna", "texto": ["Bom dia! Hoje vamos conhecer a parte da planta que trabalha escondida: a raiz.", "Com uma lanterna pequena, olhe por baixo de um copinho, sem tirar a muda do lugar. Raiz saudável é branquinha ou creme, e começa a crescer para fora do copinho.", "Se você vir raiz marrom e com cheiro ruim, abra o Doutor da Planta no app. Mas, nos primeiros dias, o normal é ver raiz bonita.", "Aproveite para conferir se a bomba continua ligando sozinha, se você usa timer de tomada.", "Até amanhã!"]}, {"dia": 5, "titulo": "Luz na planta, escuro na água", "tarefa": "Conferir a luz e tampar furos vazios", "texto": ["Bom dia! A planta gosta de luz nas folhas. Mas a água gosta de escuro. Quando entra luz na água, nasce limo verde.", "A tarefa de hoje é dar uma volta na horta e ver se tem algum furo sem planta. Se tiver, tampe com um copinho vazio ou um pedaço de fita escura.", "Veja também se o reservatório está bem tampado e na sombra.", "Repare onde bate o sol ao longo do dia. A alface gosta de sol da manhã. Se o sol da tarde estiver muito forte, uma tela de sombra ajuda.", "Até amanhã!"]}, {"dia": 6, "titulo": "Segunda medição e água nova", "tarefa": "Medir a acidez e completar a água", "texto": ["Bom dia! Hoje é dia de medir a acidez de novo, igual ao terceiro dia. Fitinha na água, trinta segundos, e compare a cor no app.", "Depois, olhe o nível. Nesta fase as plantas começam a beber mais. Complete com água pura até a marca.", "Você deve estar percebendo as folhas novas abrindo no meio da muda. É o sinal de que ela pegou de vez.", "Se tiver netos ou filhos acompanhando pelo Acesso Família, mande uma foto para eles hoje. Eles vão adorar ver o progresso.", "Até amanhã!"]}, {"dia": 7, "titulo": "Uma semana de horta", "tarefa": "Revisar a semana e tirar a segunda foto", "texto": ["Bom dia! Você completou a primeira semana. Isso é uma conquista de verdade: a fase mais delicada da horta já passou.", "Tire a segunda foto e compare com a do primeiro dia, no Diário do app. Repare como as folhas cresceram.", "A partir de agora a rotina fica ainda mais simples. O app continua mostrando a tarefa de cada dia, sempre de dois minutos. A primeira troca completa de água acontece no dia catorze, e o app avisa.", "Se ficou alguma dúvida, toque em Falar com uma pessoa. Estamos aqui.", "Bom trabalho, e até amanhã!"]}];
   /* ---------------- Estado ---------------- */
   var HOJE = semHora(new Date());
   function semHora(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
@@ -510,6 +511,7 @@ details.faq p { padding: 0 1rem 1rem; }
       return h;
     }
 
+    if (dia >= 1 && dia <= 7) h += '<section class="cartao agua"><span class="etiqueta agua">Primeira Semana Guiada</span><p>Ouça o recado de 2 minutos do dia ' + dia + '.</p><button class="btn agua" data-ir="semana" type="button">Ouvir o recado de hoje</button></section>';
     var tarefa = tarefaDoDia(dia), feita = S.feitasEm[chaveHoje()];
     h += '<section class="cartao hoje"><span class="etiqueta sol">Tarefa de hoje · ' + tarefa.min + ' min</span><h2>' + esc(tarefa.t) + '</h2>';
     if (feita) {
@@ -656,6 +658,7 @@ details.faq p { padding: 0 1rem 1rem; }
   telas.ajuda = function () {
     var h = '<h1>Ajuda</h1>';
     h += '<section class="cartao verde"><h2>Falar com uma pessoa</h2><p>Nossa equipe responde pelo WhatsApp de segunda a sábado, das 8h às 18h.</p><button class="btn" data-acao="whatsapp" type="button">Abrir conversa no WhatsApp</button></section>';
+    h += '<section class="cartao"><h2>Primeira Semana Guiada</h2><p>Os recados dos 7 primeiros dias da horta.</p><button class="btn secundario" data-ir="semana" type="button">Abrir os recados</button></section>';
     h += '<section class="cartao"><h2>Acesso Família</h2><p>Filhos e netos acompanham a horta pelo celular deles.</p><button class="btn secundario" data-ir="familia" type="button">Ver quem acompanha</button></section>';
     h += '<h2>Perguntas comuns</h2>';
     var faq = [
@@ -693,6 +696,19 @@ details.faq p { padding: 0 1rem 1rem; }
     if (S.conviteTexto) {
       h += '<section class="cartao hoje" aria-live="polite"><span class="etiqueta sol">Convite pronto</span><p>' + esc(S.conviteTexto) + '</p><button class="btn" type="button" data-acao="fam-copiar">Copiar e mandar no WhatsApp</button></section>';
     }
+    return h;
+  };
+
+
+  telas.semana = function () {
+    var d = Math.max(1, Math.min(7, S.semanaDia || Math.min(7, Math.max(1, diaDaHorta())))), x = SEMANA[d - 1];
+    var h = '<button class="btn secundario" data-volta="1" type="button">' + ICONE_VOLTA + ' Voltar</button>';
+    h += '<span class="etiqueta">Primeira Semana Guiada</span>';
+    h += '<div class="filtros">' + SEMANA.map(function (z) { return '<button class="filtro" type="button" data-acao="semana-dia" data-d="' + z.dia + '" aria-pressed="' + (z.dia === d) + '">Dia ' + z.dia + '</button>'; }).join("") + '</div>';
+    h += '<h1>Dia ' + d + ': ' + esc(x.titulo) + '</h1>';
+    h += '<section class="cartao hoje"><p><strong>Tarefa de hoje:</strong> ' + esc(x.tarefa) + '</p></section>';
+    h += '<button class="btn agua" type="button" data-acao="ouvir-semana">Ouvir o recado do dia</button>';
+    h += '<section class="cartao" id="texto-semana">' + x.texto.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") + '</section>';
     return h;
   };
 
@@ -752,7 +768,7 @@ details.faq p { padding: 0 1rem 1rem; }
   };
 
   /* ---------------- Roteador ---------------- */
-  var ABA_DE = { hoje: "hoje", horta: "horta", montagem: "horta", compras: "horta", adubo: "horta", fita: "horta", projetos: "horta", verProjeto: "horta", familia: "ajuda", doutor: "doutor", diario: "diario", ajuda: "ajuda", quiz: "", montando: "", resultado: "" };
+  var ABA_DE = { hoje: "hoje", horta: "horta", montagem: "horta", compras: "horta", adubo: "horta", fita: "horta", projetos: "horta", verProjeto: "horta", familia: "ajuda", semana: "hoje", doutor: "doutor", diario: "diario", ajuda: "ajuda", quiz: "", montando: "", resultado: "" };
   var historico = [];
   var atual = "hoje";
 
@@ -842,6 +858,7 @@ details.faq p { padding: 0 1rem 1rem; }
       var destino = alvo.getAttribute("data-ir");
       if (destino === "quiz") { S.quizI = 0; S.respostas = S.respostas || {}; }
       if (destino === "fita") S.phEscolhido = null;
+      if (destino === "semana") S.semanaDia = null;
       ir(destino); return;
     }
     if (alvo.hasAttribute("data-volta")) { voltar(); return; }
@@ -883,6 +900,8 @@ details.faq p { padding: 0 1rem 1rem; }
       case "compartilhar": copiar("Olha a minha horta! Hoje é o dia " + Math.max(1, diaDaHorta()) + " da minha " + p.nome + ".", "Mensagem copiada. Cole no WhatsApp da família."); break;
       case "whatsapp": aviso("No app final, este botão abre o WhatsApp do suporte."); break;
       case "exemplo": var l = S.letra; S = estadoExemplo(); S.letra = l; historico = []; ir("hoje", true); break;
+      case "semana-dia": S.semanaDia = Number(alvo.getAttribute("data-d")); desenhar(); break;
+      case "ouvir-semana": falar(document.getElementById("texto-semana").innerText); break;
       case "fam-remover": S.familia.splice(Number(alvo.getAttribute("data-i")), 1); S.conviteTexto = null; desenhar(); break;
       case "fam-copiar": copiar(S.conviteTexto, "Convite copiado. Cole no WhatsApp."); break;
       case "filtro": S.filtro = alvo.getAttribute("data-f"); desenhar(); break;
@@ -915,6 +934,17 @@ details.faq p { padding: 0 1rem 1rem; }
   document.getElementById("btn-letra").addEventListener("click", abrirLetra);
   document.getElementById("dialogo-letra").addEventListener("click", function (ev) { if (ev.target === this) this.classList.remove("aberto"); });
 
+  function falar(texto) {
+    try {
+      var sy = window.speechSynthesis;
+      if (!sy) { aviso("Este aparelho não tem leitura em voz alta."); return; }
+      if (sy.speaking) { sy.cancel(); return; }
+      var u = new SpeechSynthesisUtterance(texto); u.lang = "pt-BR"; u.rate = 0.9;
+      var vozes = sy.getVoices().filter(function (v) { return /pt(-|_)BR/i.test(v.lang); });
+      if (vozes.length) u.voice = vozes[0];
+      sy.speak(u); aviso("Lendo em voz alta. Toque de novo para parar.");
+    } catch (e) { aviso("Não consegui ler em voz alta neste aparelho."); }
+  }
   document.getElementById("btn-ouvir").addEventListener("click", function () {
     try {
       var sy = window.speechSynthesis;
