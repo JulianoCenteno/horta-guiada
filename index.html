@@ -161,7 +161,8 @@ details.faq p { padding: 0 1rem 1rem; }
 .barra-cta { position: sticky; bottom: 0; background: rgba(246,249,245,0.96); border-top: 1px solid var(--linha); padding: 0.6rem 0; z-index: 5; display: none; }
 .barra-cta.mostrar { display: block; }
 
-.bump { display: grid; grid-template-columns: 34px 1fr; gap: 0.7rem; align-items: start; border: 2px dashed var(--alerta); background: #FFF8F2; border-radius: 14px; padding: 0.85rem; cursor: pointer; }
+.bump { display: grid; grid-template-columns: 34px 84px 1fr; gap: 0.7rem; align-items: start; border: 2px dashed var(--alerta); background: #FFF8F2; border-radius: 14px; padding: 0.85rem; cursor: pointer; }
+.bump img { width: 84px; height: 112px; object-fit: cover; border-radius: 8px; border: 1px solid var(--linha); background: #fff; }
 .bump input { width: 30px; height: 30px; accent-color: var(--folha); margin: 0; }
 .bump strong { color: var(--alerta); }
 .resumo .linha-info span:first-child { color: var(--tinta-suave); }
@@ -340,9 +341,9 @@ footer { padding: 1.5rem 0 6rem; font-size: 0.8rem; color: var(--tinta-suave); t
       <div class="linha-info"><span>Horta Guiada: plano anual + 5 bônus</span><span>R$47,00</span></div>
     </div>
     <h3>Aproveite também:</h3>
-    <label class="bump"><input type="checkbox" data-bump="familia" data-valor="14.90"><span><strong>SIM, quero o Acesso Família por +R$14,90</strong><br><span class="pequeno">Mais 2 contas para filhos ou netos acompanharem a horta e receberem o álbum de fotos.</span></span></label>
-    <label class="bump"><input type="checkbox" data-bump="premium" data-valor="17.90"><span><strong>SIM, quero os Projetos Premium por +R$17,90</strong><br><span class="pequeno">Tomate, morango e pimentão, com calendário próprio para cada um.</span></span></label>
-    <label class="bump"><input type="checkbox" data-bump="imprimir" data-valor="9.90"><span><strong>SIM, quero o Kit para Imprimir por +R$9,90</strong><br><span class="pequeno">Calendário da horta e receitas em letra grande para colar na geladeira.</span></span></label>
+    <label class="bump"><input type="checkbox" data-bump="familia" data-valor="14.90"><img src="app/img/capa-familia.jpg" alt="Tela do Acesso Família no app"><span><strong>SIM, quero o Acesso Família por +R$14,90</strong><br><span class="pequeno">Até 2 filhos ou netos acompanham a horta pelo celular deles: veem a tarefa do dia, o álbum de fotos e o aviso da colheita.</span></span></label>
+    <label class="bump"><input type="checkbox" data-bump="premium" data-valor="17.90"><img src="app/img/capa-premium.jpg" alt="Capa do guia Projetos Premium"><span><strong>SIM, quero os Projetos Premium por +R$17,90</strong><br><span class="pequeno">Tomate, morango e pimentão: guia de 12 páginas em letra grande, com lista de compras, montagem, cuidados e colheita. Os 3 projetos também entram no app.</span></span></label>
+    <label class="bump"><input type="checkbox" data-bump="imprimir" data-valor="9.90"><img src="app/img/capa-kit.jpg" alt="Capa do Kit para Imprimir"><span><strong>SIM, quero o Kit para Imprimir por +R$9,90</strong><br><span class="pequeno">13 páginas para colar na geladeira: calendário de 6 semanas, anotações da acidez, o que plantar em cada estação, ajuda rápida e 6 receitas em letra grande.</span></span></label>
     <div class="cartao">
       <div class="linha-info total"><span>Total</span><span id="total">R$47,00</span></div>
     </div>
@@ -406,6 +407,12 @@ footer { padding: 1.5rem 0 6rem; font-size: 0.8rem; color: var(--tinta-suave); t
     <h1>Bem-vindo à Horta Guiada!</h1>
     <p>No ar, este é o momento em que o acesso chega pelo WhatsApp. Nesta prévia, você pode abrir o app direto:</p>
     <a class="btn" href="app/">Abrir o app</a>
+    <div class="cartao">
+      <h3>Seus produtos extras (prévia)</h3>
+      <a class="btn secundario" href="produtos/horta-guiada-projetos-premium.pdf">Projetos Premium (PDF)</a>
+      <a class="btn secundario" href="produtos/horta-guiada-kit-para-imprimir.pdf">Kit para Imprimir (PDF)</a>
+      <p class="suave pequeno">O Acesso Família fica dentro do app, no menu Ajuda.</p>
+    </div>
     <button class="btn secundario" type="button" data-ir="capa">Voltar ao começo do quiz</button>
   </section>
 </main>

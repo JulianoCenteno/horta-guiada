@@ -304,17 +304,21 @@ details.faq p { padding: 0 1rem 1rem; }
     { id: "nft-24", nome: "Bancada Familiar 24", tipo: "nft", plantas: 24, cultura: "alface", espaco: "Quintal ou varanda grande", custo: "R$400 a R$650", energia: "Bomba de água média", nivel: "Médio", canos: 4, comp: "1,60 m", furos: 6, res: 60, bomba: 800, ciclo: 35, semAbaixar: true, tags: ["quintal", "semAbaixar"] },
     { id: "torre-28", nome: "Torre Vertical", tipo: "torre", plantas: 28, cultura: "alface e temperos", espaco: "Canto de varanda, pouco chão", custo: "R$350 a R$550", energia: "Bomba de água média", nivel: "Médio", res: 40, ciclo: 35, semAbaixar: false, tags: ["varanda"] },
     { id: "dutch-2", nome: "Baldes de Tomate", tipo: "dutch", plantas: 2, cultura: "tomate", espaco: "Varanda com bastante sol", custo: "R$150 a R$250", energia: "Bomba de água pequena", nivel: "Médio", res: 40, ciclo: 70, semAbaixar: true, tags: ["varanda", "semAbaixar"] },
+    { id: "morango-12", nome: "Morango em Canos", tipo: "nft", img: "morango", premium: true, plantas: 12, cultura: "morango", espaco: "Varanda com sol", custo: "R$250 a R$400", energia: "Bomba de água pequena", nivel: "Médio", canos: 2, comp: "1,20 m", furos: 6, diam: 100, furo: "7,5 cm", res: 40, bomba: 500, ciclo: 75, semAbaixar: true, tags: ["varanda", "semAbaixar", "premium"] },
+    { id: "tomate-2", nome: "Tomate em Baldes", tipo: "dutch", img: "dutch", premium: true, plantas: 2, cultura: "tomate", espaco: "Varanda com sol", custo: "R$150 a R$250", energia: "Bomba de água pequena", nivel: "Médio", res: 40, ciclo: 75, semAbaixar: true, tags: ["varanda", "semAbaixar", "premium"] },
+    { id: "pimentao-2", nome: "Pimentão em Baldes", tipo: "dutch", img: "pimentao", premium: true, plantas: 2, cultura: "pimentão", espaco: "Varanda com muito sol", custo: "R$150 a R$250", energia: "Bomba de água pequena", nivel: "Médio", res: 40, ciclo: 100, semAbaixar: true, tags: ["varanda", "semAbaixar", "premium"] },
     { id: "nft-48", nome: "Bancada Completa 48", tipo: "nft", plantas: 48, cultura: "alface", espaco: "Quintal", custo: "a partir de R$900", energia: "Bomba de água forte", nivel: "Avançado", canos: 6, comp: "2 m", furos: 8, res: 100, bomba: 1500, ciclo: 35, semAbaixar: true, tags: ["quintal", "semAbaixar"] }
   ];
 
+  function rotuloPlantas(p) { return p.cultura === "tomate" ? "pés de tomate" : (p.cultura === "pimentão" ? "pés de pimentão" : (p.cultura === "morango" ? "pés de morango" : "plantas")); }
   function projeto(id) { for (var i = 0; i < PROJETOS.length; i++) if (PROJETOS[i].id === id) return PROJETOS[i]; return PROJETOS[5]; }
 
   function listaCompras(p) {
-    var muda = p.cultura === "tomate" ? "Mudas ou sementes de tomate" : (p.cultura === "temperos" ? "Sementes de manjericão, salsa e cebolinha" : "Sementes de alface");
+    var muda = { "tomate": "Mudas de tomate (cereja é o mais fácil)", "temperos": "Sementes de manjericão, salsa e cebolinha", "morango": "Mudas de morango (Albion ou San Andreas)", "pimentão": "Mudas de pimentão" }[p.cultura] || "Sementes de alface";
     var base = ["1 placa de espuma fenólica para as mudas", muda, "1 pote de fitinhas de acidez (pH)", "Adubo para hidroponia (em pó ou líquido)"];
     var l;
     if (p.tipo === "nft") {
-      l = [p.canos + " canos de PVC de 75 mm com " + p.comp, (p.canos * 2) + " tampões de 75 mm", "1 caixa plástica de " + p.res + " litros com tampa (reservatório)", "1 bomba de água submersa, cerca de " + p.bomba + " litros por hora", "3 metros de mangueira de 1/2 polegada", p.plantas + " copinhos (vasos) para hidroponia", "Cavalete ou bancada com 90 cm de altura"];
+      l = [p.canos + " canos de PVC de " + (p.diam || 75) + " mm com " + p.comp, (p.canos * 2) + " tampões de " + (p.diam || 75) + " mm", "1 caixa plástica de " + p.res + " litros com tampa (reservatório)", "1 bomba de água submersa, cerca de " + p.bomba + " litros por hora", "3 metros de mangueira de 1/2 polegada", p.plantas + " copinhos (vasos) para hidroponia", "Cavalete ou bancada com 90 cm de altura"];
     } else if (p.tipo === "kratky") {
       l = ["1 caixa ou pote de " + p.res + " litros com tampa escura", p.plantas + " copinhos (vasos) para hidroponia", "Fita isolante preta ou tinta escura para cobrir o pote"];
     } else if (p.tipo === "dwc") {
@@ -332,8 +336,8 @@ details.faq p { padding: 0 1rem 1rem; }
     var adubo = "Encha o reservatório e coloque o adubo. A calculadora do app diz quantas colheres usar.";
     if (p.tipo === "nft") return [
       compre,
-      { t: "Corte os canos", x: "Corte " + p.canos + " pedaços de cano de 75 mm com " + p.comp + " cada. Lixe as pontas para não ficar rebarba.", d: "Se a loja já cortou, pule esta etapa." },
-      { t: "Fure os canos", x: "Faça " + p.furos + " furos de 5 cm em cada cano, com 25 cm entre um e outro. Use uma serra-copo na furadeira.", d: "Marque os furos com caneta antes de furar." },
+      { t: "Corte os canos", x: "Corte " + p.canos + " pedaços de cano de " + (p.diam || 75) + " mm com " + p.comp + " cada. Lixe as pontas para não ficar rebarba.", d: "Se a loja já cortou, pule esta etapa." },
+      { t: "Fure os canos", x: "Faça " + p.furos + " furos de " + (p.furo || "5 cm") + " em cada cano, com 25 cm entre um e outro. Use uma serra-copo na furadeira.", d: "Marque os furos com caneta antes de furar." },
       { t: "Monte a bancada na altura da cintura", x: "Monte o cavalete com cerca de 90 cm de altura e uma inclinação leve, uns 2 cm por metro, para a água escorrer.", d: "Na altura da cintura você cuida da horta em pé, sem forçar as costas." },
       { t: "Coloque os canos e o reservatório", x: "Feche as pontas dos canos com os tampões. Deixe o reservatório embaixo da bancada, na sombra, com a bomba dentro.", d: "Reservatório no sol esquenta a água e faz a raiz sofrer." },
       { t: "Teste com água pura", x: "Ligue a mangueira, encha com água sem adubo e deixe a bomba rodar por 1 hora. Olhe cada emenda procurando vazamento.", d: "Um pano seco embaixo das emendas mostra qualquer gotinha." },
@@ -368,7 +372,7 @@ details.faq p { padding: 0 1rem 1rem; }
       { t: "Monte na bancada", x: "Coloque os baldes na bancada com o cano de retorno embaixo, levando a água de volta ao reservatório." },
       { t: "Ligue os gotejadores", x: "Leve a mangueira da bomba até cada balde e coloque um gotejador em cada um." },
       { t: "Teste com água pura", x: "Ligue por 1 hora e veja se a água pinga em todos os baldes e volta para o reservatório." },
-      { t: "Plante e amarre", x: adubo + " Plante as mudas e finque a vara de bambu ao lado para amarrar o tomateiro.", acao: "adubo" }
+      { t: "Plante e amarre", x: adubo + " Plante as mudas e finque a vara de bambu ao lado para amarrar a planta.", acao: "adubo" }
     ];
   }
 
@@ -429,7 +433,8 @@ details.faq p { padding: 0 1rem 1rem; }
         { dia: 8, texto: "As folhas começaram a abrir", tam: 2 },
         { dia: 15, texto: "Já dá para ver o formato da alface", tam: 3 }
       ],
-      filtro: "todos", recomendado: null, letra: ""
+      filtro: "todos", recomendado: null, letra: "",
+      familia: [{ nome: "Ana", parentesco: "Filha", desde: "há 5 dias" }]
     };
   }
 
@@ -468,7 +473,7 @@ details.faq p { padding: 0 1rem 1rem; }
       '<circle cx="' + (cx + r * 0.4) + '" cy="' + (cy - r * 0.3) + '" r="' + (r * 0.55) + '" fill="#8ACB72"/>' +
       '<circle cx="' + cx + '" cy="' + (cy - r * 0.55) + '" r="' + (r * 0.4) + '" fill="#A6D98A"/></g>';
   }
-  var ALT = { nft: "Bancada de canos brancos com 12 pés de alface", kratky: "Caixa escura com 4 pés de alface na tampa", dwc: "Caixa com placa de isopor e 6 pés de alface", torre: "Torre de cano branco com alfaces e temperos", dutch: "Dois tomateiros em baldes pretos" };
+  var ALT = { morango: "Morangos em canos brancos", pimentao: "Pimentões em baldes pretos", nft: "Bancada de canos brancos com 12 pés de alface", kratky: "Caixa escura com 4 pés de alface na tampa", dwc: "Caixa com placa de isopor e 6 pés de alface", torre: "Torre de cano branco com alfaces e temperos", dutch: "Dois tomateiros em baldes pretos" };
   function desenho(tipo) { return '<img src="img/' + tipo + '.jpg" alt="' + (ALT[tipo] || "Horta") + '" loading="lazy">'; }
   function mudinha(tam) { var n = Math.max(1, Math.min(3, tam || 1)); return '<img src="img/fase' + n + '.jpg" alt="Alface na fase ' + n + ' de crescimento" loading="lazy">'; }
 
@@ -518,7 +523,7 @@ details.faq p { padding: 0 1rem 1rem; }
 
     var total = p.ciclo, pct = Math.min(100, Math.round(dia / total * 100)), colheita = somaDias(new Date(S.inicio), total - 1);
     var falta = total - dia;
-    h += '<section class="cartao verde"><h3>' + esc(p.nome) + ' · ' + p.plantas + ' ' + (p.cultura === "tomate" ? "pés de tomate" : "plantas") + '</h3>' +
+    h += '<section class="cartao verde"><h3>' + esc(p.nome) + ' · ' + p.plantas + ' ' + rotuloPlantas(p) + '</h3>' +
       '<p>Dia <strong>' + dia + '</strong> de cerca de ' + total + '.</p>' +
       '<div class="progresso" aria-hidden="true"><span style="width:' + pct + '%"></span></div>' +
       '<p>' + (falta > 0 ? "Colheita prevista: por volta de <strong>" + esc(dataCurta(colheita)) + "</strong>, daqui a " + falta + " dias." : "<strong>Já pode colher!</strong> Corte as plantas maiores primeiro.") + '</p></section>';
@@ -530,6 +535,7 @@ details.faq p { padding: 0 1rem 1rem; }
     }
     h += '</ul><p class="suave pequeno">Você recebe um lembrete no WhatsApp no dia de cada tarefa.</p></section>';
 
+    if (S.familia && S.familia.length) h += '<section class="cartao"><h3>Família acompanhando</h3><p>' + S.familia.map(function (f) { return esc(f.nome) + ' (' + esc(f.parentesco.toLowerCase()) + ')'; }).join(", ") + ' vê a sua horta pelo celular.</p><button class="btn secundario" data-ir="familia" type="button">Acesso Família</button></section>';
     var colhidas = p.plantas, valor = colhidas * S.preco;
     h += '<section class="cartao agua"><h3>Quanto esta colheita vale</h3><p>' + colhidas + ' ' + (p.cultura === "tomate" ? "pés" : "pés de alface") + ' × R$' + S.preco + ' (preço médio no mercado) = <strong>R$' + valor + '</strong></p>' +
       '<p class="suave pequeno">Ajuste o preço que você paga no seu mercado:</p>' +
@@ -540,8 +546,8 @@ details.faq p { padding: 0 1rem 1rem; }
   telas.horta = function () {
     var p = projeto(S.projetoId), dia = diaDaHorta(), h = "";
     h += '<h1>Minha horta</h1>';
-    h += '<section class="cartao"><div class="desenho">' + desenho(p.tipo) + '</div><h2>' + esc(p.nome) + '</h2>' +
-      '<div class="etiquetas"><span class="chip">' + p.plantas + ' ' + (p.cultura === "tomate" ? "pés de tomate" : "plantas") + '</span>' + (p.semAbaixar ? '<span class="chip">Sem abaixar</span>' : "") + '<span class="chip">' + esc(p.nivel) + '</span></div>' +
+    h += '<section class="cartao"><div class="desenho">' + desenho(p.img || p.tipo) + '</div><h2>' + esc(p.nome) + '</h2>' +
+      '<div class="etiquetas"><span class="chip">' + p.plantas + ' ' + rotuloPlantas(p) + '</span>' + (p.semAbaixar ? '<span class="chip">Sem abaixar</span>' : "") + '<span class="chip">' + esc(p.nivel) + '</span></div>' +
       '<div><div class="linha-info"><span>Onde</span><span>' + esc(p.espaco) + '</span></div><div class="linha-info"><span>Energia</span><span>' + esc(p.energia) + '</span></div><div class="linha-info"><span>Custo estimado</span><span>' + esc(p.custo) + '</span></div>' +
       (S.inicio ? '<div class="linha-info"><span>Plantada em</span><span>' + esc(dataCurta(new Date(S.inicio))) + ' (dia ' + dia + ')</span></div>' : '<div class="linha-info"><span>Situação</span><span>Em montagem</span></div>') + '</div></section>';
     h += '<div class="btns">' +
@@ -557,7 +563,7 @@ details.faq p { padding: 0 1rem 1rem; }
   telas.montagem = function () {
     var p = projeto(S.projetoId), et = etapas(p), i = Math.max(0, Math.min(S.passo || 0, et.length - 1)), e = et[i], ultimo = i === et.length - 1;
     var h = '<div class="cabeca-quiz"><span class="suave"><strong>Etapa ' + (i + 1) + ' de ' + et.length + '</strong></span><div class="progresso" aria-hidden="true"><span style="width:' + Math.round((i + 1) / et.length * 100) + '%"></span></div></div>';
-    h += '<section class="cartao"><div class="desenho">' + desenho(p.tipo) + '</div><h1>' + esc(e.t) + '</h1><p>' + esc(e.x) + '</p>' +
+    h += '<section class="cartao"><div class="desenho">' + desenho(p.img || p.tipo) + '</div><h1>' + esc(e.t) + '</h1><p>' + esc(e.x) + '</p>' +
       (e.d ? '<div class="cartao verde" style="padding:0.8rem"><p><strong>Dica:</strong> ' + esc(e.d) + '</p></div>' : "") +
       (e.acao === "compras" ? '<button class="btn agua" data-ir="compras" type="button">Abrir a lista de compras</button>' : "") +
       (e.acao === "adubo" ? '<button class="btn agua" data-ir="adubo" type="button">Abrir a calculadora do adubo</button>' : "") +
@@ -643,12 +649,14 @@ details.faq p { padding: 0 1rem 1rem; }
       return '<figure class="foto" style="margin:0"><div class="img">' + (e.img ? '<img src="' + e.img + '" alt="Foto da horta no dia ' + e.dia + '">' : mudinha(e.tam || 1)) + '</div><p><strong>Dia ' + e.dia + '</strong><br>' + esc(e.texto) + '</p></figure>';
     }).join("") + '</div>';
     h += '<button class="btn secundario" data-acao="compartilhar" type="button">Mandar o álbum para a família</button>';
+    h += '<button class="btn secundario" data-ir="familia" type="button">Convidar a família para acompanhar</button>';
     return h;
   };
 
   telas.ajuda = function () {
     var h = '<h1>Ajuda</h1>';
     h += '<section class="cartao verde"><h2>Falar com uma pessoa</h2><p>Nossa equipe responde pelo WhatsApp de segunda a sábado, das 8h às 18h.</p><button class="btn" data-acao="whatsapp" type="button">Abrir conversa no WhatsApp</button></section>';
+    h += '<section class="cartao"><h2>Acesso Família</h2><p>Filhos e netos acompanham a horta pelo celular deles.</p><button class="btn secundario" data-ir="familia" type="button">Ver quem acompanha</button></section>';
     h += '<h2>Perguntas comuns</h2>';
     var faq = [
       ["Esqueci de fazer a tarefa ontem. E agora?", "Sem problema. Faça hoje. Um dia sem olhar não estraga a horta."],
@@ -662,13 +670,39 @@ details.faq p { padding: 0 1rem 1rem; }
     return h;
   };
 
+
+  telas.familia = function () {
+    var fam = S.familia || [], vagas = 2 - fam.length, p = projeto(S.projetoId);
+    var h = '<button class="btn secundario" data-volta="1" type="button">' + ICONE_VOLTA + ' Voltar</button>';
+    h += '<span class="etiqueta">Acesso Família</span><h1>A família acompanhando a sua horta</h1>';
+    h += '<p>Até 2 pessoas da família acompanham a horta pelo celular delas. Elas não precisam pagar nada.</p>';
+    h += '<section class="cartao verde"><h3>O que a família vê</h3><ul class="passos">' +
+      '<li>A tarefa do dia e se você já fez</li><li>O álbum de fotos da horta, semana a semana</li><li>O aviso quando a colheita estiver perto</li><li>Podem marcar a tarefa como feita, quando ajudarem</li></ul></section>';
+    h += '<section class="cartao"><h3>Quem já acompanha</h3>';
+    if (!fam.length) h += '<p class="suave">Ninguém ainda. Convide abaixo.</p>';
+    h += fam.map(function (f, i) {
+      return '<div class="linha-info"><span><strong>' + esc(f.nome) + '</strong><br><span class="suave pequeno">' + esc(f.parentesco) + (f.desde ? ' · acompanha ' + esc(f.desde) : ' · convite enviado') + '</span></span><span><button class="btn-topo" type="button" data-acao="fam-remover" data-i="' + i + '">Remover</button></span></div>';
+    }).join("");
+    h += '<p class="suave pequeno">' + (vagas > 0 ? 'Você ainda pode convidar ' + vagas + (vagas === 1 ? ' pessoa.' : ' pessoas.') : 'As 2 vagas estão ocupadas.') + '</p></section>';
+    if (vagas > 0) {
+      h += '<section class="cartao"><h3>Convidar alguém</h3><form id="form-familia" class="btns">' +
+        '<label for="fam-nome" class="suave">Nome</label><input class="campo" id="fam-nome" autocomplete="off" required>' +
+        '<label for="fam-par" class="suave">Quem é</label><select class="campo" id="fam-par"><option>Filho ou filha</option><option>Neto ou neta</option><option>Marido ou esposa</option><option>Irmão ou irmã</option><option>Outra pessoa</option></select>' +
+        '<button class="btn" type="submit">Criar convite</button></form></section>';
+    }
+    if (S.conviteTexto) {
+      h += '<section class="cartao hoje" aria-live="polite"><span class="etiqueta sol">Convite pronto</span><p>' + esc(S.conviteTexto) + '</p><button class="btn" type="button" data-acao="fam-copiar">Copiar e mandar no WhatsApp</button></section>';
+    }
+    return h;
+  };
+
   telas.projetos = function () {
-    var filtros = [["todos", "Todos"], ["semAbaixar", "Sem abaixar"], ["barato", "Até R$200"], ["janela", "Janela"], ["varanda", "Varanda"], ["quintal", "Quintal"]];
+    var filtros = [["todos", "Todos"], ["premium", "Premium"], ["semAbaixar", "Sem abaixar"], ["barato", "Até R$200"], ["janela", "Janela"], ["varanda", "Varanda"], ["quintal", "Quintal"]];
     var h = '<button class="btn secundario" data-volta="1" type="button">' + ICONE_VOLTA + ' Voltar</button><h1>Projetos</h1>';
     h += '<div class="filtros">' + filtros.map(function (f) { return '<button class="filtro" type="button" data-acao="filtro" data-f="' + f[0] + '" aria-pressed="' + (S.filtro === f[0]) + '">' + f[1] + '</button>'; }).join("") + '</div>';
     var lista = PROJETOS.filter(function (p) { return S.filtro === "todos" || p.tags.indexOf(S.filtro) >= 0; });
     h += '<div class="projetos">' + lista.map(function (p) {
-      return '<button class="projeto-item" type="button" data-acao="ver-projeto" data-id="' + p.id + '"><span class="mini">' + desenho(p.tipo) + '</span><span><strong>' + esc(p.nome) + '</strong><br><span class="suave pequeno">' + p.plantas + ' ' + (p.cultura === "tomate" ? "pés de tomate" : "plantas") + ' · ' + esc(p.custo) + (p.id === S.projetoId ? " · <strong>sua horta</strong>" : "") + '</span></span></button>';
+      return '<button class="projeto-item" type="button" data-acao="ver-projeto" data-id="' + p.id + '"><span class="mini">' + desenho(p.img || p.tipo) + '</span><span><strong>' + esc(p.nome) + '</strong><br><span class="suave pequeno">' + p.plantas + ' ' + rotuloPlantas(p) + ' · ' + esc(p.custo) + (p.premium ? " · <strong>Premium</strong>" : "") + (p.id === S.projetoId ? " · <strong>sua horta</strong>" : "") + '</span></span></button>';
     }).join("") + '</div>';
     return h;
   };
@@ -697,8 +731,8 @@ details.faq p { padding: 0 1rem 1rem; }
     var id = S.recomendado || recomendar(S.respostas), p = projeto(id), r = S.respostas;
     var motivos = ["espaco", "orcamento", "colher", "postura"].filter(function (k) { return r[k]; }).map(function (k) { return ROTULO[k + ":" + r[k]]; });
     var h = '<p class="suave"><strong>' + esc(S.nome || "Pronto") + ', este é o seu projeto ideal</strong></p><h1>' + esc(p.nome) + '</h1>';
-    h += '<section class="cartao"><div class="desenho">' + desenho(p.tipo) + '</div>' +
-      '<div class="etiquetas"><span class="chip">' + p.plantas + ' ' + (p.cultura === "tomate" ? "pés de tomate" : "plantas") + '</span>' + (p.semAbaixar ? '<span class="chip">Sem abaixar</span>' : "") + '<span class="chip">' + esc(p.nivel) + '</span></div>' +
+    h += '<section class="cartao"><div class="desenho">' + desenho(p.img || p.tipo) + '</div>' +
+      '<div class="etiquetas"><span class="chip">' + p.plantas + ' ' + rotuloPlantas(p) + '</span>' + (p.semAbaixar ? '<span class="chip">Sem abaixar</span>' : "") + '<span class="chip">' + esc(p.nivel) + '</span></div>' +
       '<div><div class="linha-info"><span>Onde</span><span>' + esc(p.espaco) + '</span></div><div class="linha-info"><span>Custo estimado</span><span>' + esc(p.custo) + '</span></div><div class="linha-info"><span>Primeira colheita</span><span>cerca de ' + p.ciclo + ' dias depois das mudas</span></div><div class="linha-info"><span>Energia</span><span>' + esc(p.energia) + '</span></div></div></section>';
     if (motivos.length) h += '<section class="cartao verde"><h3>Escolhemos este porque você disse</h3><ul class="passos">' + motivos.map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("") + '</ul></section>';
     if (r.sol === "pouco") h += '<section class="cartao alerta"><p><strong>Pouco sol:</strong> escolha o cantinho mais claro da casa ou use uma lâmpada de LED para plantas. O app mostra como na montagem.</p></section>';
@@ -710,14 +744,15 @@ details.faq p { padding: 0 1rem 1rem; }
 
   telas.verProjeto = function () {
     var p = projeto(S.vendo), h = '<button class="btn secundario" data-volta="1" type="button">' + ICONE_VOLTA + ' Voltar</button><h1>' + esc(p.nome) + '</h1>';
-    h += '<section class="cartao"><div class="desenho">' + desenho(p.tipo) + '</div><div class="etiquetas"><span class="chip">' + p.plantas + ' ' + (p.cultura === "tomate" ? "pés de tomate" : "plantas") + '</span>' + (p.semAbaixar ? '<span class="chip">Sem abaixar</span>' : "") + '<span class="chip">' + esc(p.nivel) + '</span></div>' +
+    h += '<section class="cartao"><div class="desenho">' + desenho(p.img || p.tipo) + '</div><div class="etiquetas"><span class="chip">' + p.plantas + ' ' + rotuloPlantas(p) + '</span>' + (p.semAbaixar ? '<span class="chip">Sem abaixar</span>' : "") + '<span class="chip">' + esc(p.nivel) + '</span></div>' +
       '<div><div class="linha-info"><span>Onde</span><span>' + esc(p.espaco) + '</span></div><div class="linha-info"><span>Custo estimado</span><span>' + esc(p.custo) + '</span></div><div class="linha-info"><span>Energia</span><span>' + esc(p.energia) + '</span></div><div class="linha-info"><span>Etapas de montagem</span><span>' + etapas(p).length + '</span></div></div></section>';
+    if (p.premium) h += '<section class="cartao hoje"><span class="etiqueta sol">Projeto Premium</span><p>O guia completo deste projeto, com cuidados e colheita, está no PDF dos Projetos Premium.</p><a class="btn agua" href="../produtos/horta-guiada-projetos-premium.pdf">Abrir o guia em PDF</a></section>';
     h += p.id === S.projetoId ? '<p><strong>Esta já é a sua horta.</strong></p>' : '<button class="btn" data-acao="escolher" data-id="' + p.id + '" type="button">Quero montar este</button>';
     return h;
   };
 
   /* ---------------- Roteador ---------------- */
-  var ABA_DE = { hoje: "hoje", horta: "horta", montagem: "horta", compras: "horta", adubo: "horta", fita: "horta", projetos: "horta", verProjeto: "horta", doutor: "doutor", diario: "diario", ajuda: "ajuda", quiz: "", montando: "", resultado: "" };
+  var ABA_DE = { hoje: "hoje", horta: "horta", montagem: "horta", compras: "horta", adubo: "horta", fita: "horta", projetos: "horta", verProjeto: "horta", familia: "ajuda", doutor: "doutor", diario: "diario", ajuda: "ajuda", quiz: "", montando: "", resultado: "" };
   var historico = [];
   var atual = "hoje";
 
@@ -750,6 +785,17 @@ details.faq p { padding: 0 1rem 1rem; }
     if (fd) fd.addEventListener("change", function () { lerFoto(fd, function (u) { S.fotoDoutor = u; S.sintoma = null; desenhar(); aviso("Foto recebida. Agora escolha o que você vê."); }); });
     var fdi = document.getElementById("foto-diario");
     if (fdi) fdi.addEventListener("change", function () { lerFoto(fdi, function (u) { S.diario.push({ dia: Math.max(1, diaDaHorta()), texto: "Foto de hoje", img: u }); desenhar(); aviso("Foto guardada no diário."); }); });
+    var ff = document.getElementById("form-familia");
+    if (ff) ff.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var nome = document.getElementById("fam-nome").value.trim(), par = document.getElementById("fam-par").value;
+      if (!nome) return;
+      S.familia = S.familia || [];
+      if (S.familia.length >= 2) { aviso("As 2 vagas já estão ocupadas."); return; }
+      S.familia.push({ nome: nome, parentesco: par });
+      S.conviteTexto = "Oi, " + nome + "! Estou com uma horta em casa e quero que você acompanhe pelo celular. Toque no link para entrar: horta-guiada.app/familia (link de exemplo)";
+      desenhar(); aviso("Convite criado.");
+    });
     var al = document.getElementById("ajuste-letra");
     if (al) al.addEventListener("click", abrirLetra);
     salvar();
@@ -837,6 +883,8 @@ details.faq p { padding: 0 1rem 1rem; }
       case "compartilhar": copiar("Olha a minha horta! Hoje é o dia " + Math.max(1, diaDaHorta()) + " da minha " + p.nome + ".", "Mensagem copiada. Cole no WhatsApp da família."); break;
       case "whatsapp": aviso("No app final, este botão abre o WhatsApp do suporte."); break;
       case "exemplo": var l = S.letra; S = estadoExemplo(); S.letra = l; historico = []; ir("hoje", true); break;
+      case "fam-remover": S.familia.splice(Number(alvo.getAttribute("data-i")), 1); S.conviteTexto = null; desenhar(); break;
+      case "fam-copiar": copiar(S.conviteTexto, "Convite copiado. Cole no WhatsApp."); break;
       case "filtro": S.filtro = alvo.getAttribute("data-f"); desenhar(); break;
       case "ver-projeto": S.vendo = alvo.getAttribute("data-id"); ir("verProjeto"); break;
       case "quiz-volta": S.quizI = Math.max(0, (S.quizI || 1) - 1); desenhar(); break;
